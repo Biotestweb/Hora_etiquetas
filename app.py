@@ -4,7 +4,7 @@ VERSIÓN CON CALIBRACIÓN EN TIEMPO REAL
 """
 import streamlit as st
 from pathlib import Path
-import pymupdf  # PyMuPDF (antes era "import fitz")
+import fitz  # PyMuPDF
 from pdf2image import convert_from_path
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime, timedelta
@@ -243,7 +243,7 @@ def agregar_horas_a_pdf(pdf_path, rotulos, pdf_salida, calibraciones):
     Agrega horas al PDF usando ANOTACIONES.
     """
     try:
-        doc = pymupdf.open(pdf_path)
+        doc = fitz.open(pdf_path)
 
         rotulos_con_hora = [r for r in rotulos if r.get('hora')]
         
@@ -272,14 +272,14 @@ def agregar_horas_a_pdf(pdf_path, rotulos, pdf_salida, calibraciones):
             ancho_texto = 35
             alto_texto = 12
             
-            rect_he = pymupdf.Rect(
+            rect_he = fitz.Rect(
                 x_he, 
                 y_pos - alto_texto/2, 
                 x_he + ancho_texto, 
                 y_pos + alto_texto/2
             )
             
-            rect_hv = pymupdf.Rect(
+            rect_hv = fitz.Rect(
                 x_hv, 
                 y_pos - alto_texto/2, 
                 x_hv + ancho_texto, 
